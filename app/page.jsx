@@ -8,10 +8,7 @@ import SpecialOffer from "@/components/SpecialOffer";
 import Head from "next/head";
 import { useState } from "react";
 
-import LocomotiveScroll from "locomotive-scroll";
-
 const page = () => {
-  const locomotiveScroll = new LocomotiveScroll();
   const [cartItems, setCartItems] = useState([]);
   const [filters, setFilters] = useState({
     category: "",
