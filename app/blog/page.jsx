@@ -44,7 +44,7 @@ const Blog = () => {
         "Understanding what organic certification really means and how it affects your food.",
       date: "March 22, 2023",
       readTime: "6 min",
-      image: "/images/blog-1.jpg",
+      image: "/images/blog-4.jpg",
       slug: "organic-certification-truth",
     },
     {
@@ -54,7 +54,7 @@ const Blog = () => {
         "We break down the key differences between organic and conventional produce.",
       date: "March 5, 2023",
       readTime: "8 min",
-      image: "/images/blog-2.jpg",
+      image: "/images/blog-5.jpg",
       slug: "organic-vs-conventional",
     },
     {
@@ -64,7 +64,7 @@ const Blog = () => {
         "Quick and delicious recipes using organic ingredients that you can make in under 30 minutes.",
       date: "February 18, 2023",
       readTime: "5 min",
-      image: "/images/blog-3.jpg",
+      image: "/images/blog-6.jpg",
       slug: "easy-organic-recipes",
     },
   ];
