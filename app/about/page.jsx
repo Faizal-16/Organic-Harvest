@@ -11,6 +11,7 @@ const About = () => {
       id: 1,
       name: "Faizal Ahmed",
       position: "Founder",
+      bio:"Frontend Developer",
       image: "https://avatars.githubusercontent.com/u/200369650?v=4",
     },
   ];
@@ -90,7 +91,8 @@ const About = () => {
                   loading="lazy"
                 />
                 <h3 className="team-name">{member.name}</h3>
-                <p className="team-position">{member.position}</p>
+                <p className="text-zinc-400">{member.position}</p>
+                <p className="text-zinc-500">{member.bio}</p>
               </div>
             ))}
           </div>

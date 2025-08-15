@@ -193,11 +193,11 @@ const page = () => {
 
           <div className="product-grid">
             {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                addToCart={addToCart}
-              />
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  addToCart={addToCart}
+                />
             ))}
           </div>
         </div>

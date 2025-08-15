@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -16,8 +16,7 @@ const navLink = [
 const Header = ({ cartItems = [], removeFromCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-    const path = usePathname();
-  
+  const path = usePathname();
 
   // Safely calculate cart count even if cartItems is undefined
   const cartCount = (cartItems || []).reduce(
@@ -38,8 +37,8 @@ const Header = ({ cartItems = [], removeFromCart }) => {
               href={link.href}
               key={link.name}
               className={`nav-link ${
-                path === link.href ? "text-[z#4CAF50]  " : ""
-              } `}
+                path === link.href ? "active text-[#4CAF50]" : ""
+              }`}
             >
               {link.name}
             </Link>
@@ -63,6 +62,26 @@ const Header = ({ cartItems = [], removeFromCart }) => {
             </svg>
             {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
           </div>
+
+          {/* Profile */}
+          <div className="">
+            <Link href="/auth/auth-page" className="">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </Link>
+          </div>
         </nav>
       </div>
 
@@ -77,3 +96,4 @@ const Header = ({ cartItems = [], removeFromCart }) => {
 };
 
 export default Header;
+

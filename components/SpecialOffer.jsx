@@ -1,9 +1,9 @@
 "use client";
-
 import { useState } from "react";
 import { FiShoppingBag, FiClock, FiTag } from "react-icons/fi";
 
-const SpecialOffer = ({ product, addToCart }) => {
+const SpecialOffer = ({ addToCart }) => {
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const offerProducts = [
     {
@@ -11,10 +11,11 @@ const SpecialOffer = ({ product, addToCart }) => {
       name: "Organic Black Beans",
       originalPrice: 12.99,
       discountPrice: 6.49,
-      price: 6.49, // This is the actual price to use in cart
+      price: 6.49,
       image: "/images/black-beans.jpg",
       timeLeft: "2 days left",
       tag: "Bestseller",
+      discountPercentage: 50,
     },
     {
       id: 2,
@@ -25,6 +26,7 @@ const SpecialOffer = ({ product, addToCart }) => {
       image: "/images/kidney-beans.jpg",
       timeLeft: "1 day left",
       tag: "Limited",
+      discountPercentage: 50,
     },
     {
       id: 3,
@@ -35,49 +37,76 @@ const SpecialOffer = ({ product, addToCart }) => {
       image: "/images/mixed-beans.jpg",
       timeLeft: "3 days left",
       tag: "Popular",
+      discountPercentage: 50,
     },
   ];
 
   const handleAddToCart = (product) => {
-    const cartItem = {
+    addToCart({
       id: product.id,
       name: product.name,
-      price: product.price, // Using the discounted price
+      price: product.price,
       image: product.image,
-      quantity: 1, // Default quantity
-    };
-    addToCart(cartItem);
+      quantity: 1,
+    });
   };
 
   return (
-    <section className="special-offer">
+    <section className="special-offer-section">
       <div className="container">
         <h2 className="section-title">Upto 50% OFF On Beans Products</h2>
-        <div className="offer-products">
+        <div className="offer-products-grid">
           {offerProducts.map((product) => (
-            <div key={product.id} className="discount-card">
-              <div className="card-tag">
+            <div
+              key={product.id}
+              className={`offer-card ${
+                hoveredCard === product.id ? "hovered" : ""
+              }`}
+              onMouseEnter={() => setHoveredCard(product.id)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              {/* Discount Ribbon */}
+              <div className="discount-ribbon">
+                <span>{product.discountPercentage}% OFF</span>
+              </div>
+
+              {/* Product Tag */}
+              <div className="product-tag">
                 <FiTag className="tag-icon" />
                 <span>{product.tag}</span>
               </div>
-              <div className="card-image">
-                <img src={product.image} alt={product.name} loading="lazy" />
+
+              {/* Product Image */}
+              <div className="product-image-container">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="product-image"
+                  loading="lazy"
+                />
               </div>
-              <div className="card-content">
-                <h3>{product.name}</h3>
-                <div className="price-container">
+
+              {/* Product Details */}
+              <div className="product-details">
+                <h3 className="product-name">{product.name}</h3>
+
+                {/* Price Section */}
+                <div className="price-section">
                   <span className="original-price">
                     ${product.originalPrice.toFixed(2)}
                   </span>
-                  <span className="discount-price">
+                  <span className="current-price">
                     ${product.discountPrice.toFixed(2)}
                   </span>
                 </div>
+
+                {/* Time Left */}
                 <div className="time-left">
                   <FiClock className="clock-icon" />
                   <span>{product.timeLeft}</span>
                 </div>
 
+                {/* Add to Cart Button */}
                 <button
                   className="add-to-cart-btn"
                   onClick={() => handleAddToCart(product)}
@@ -92,7 +121,7 @@ const SpecialOffer = ({ product, addToCart }) => {
       </div>
 
       <style jsx>{`
-        .special-offer {
+        .special-offer-section {
           padding: 4rem 0;
           background-color: #f9f9f9;
         }
@@ -120,32 +149,45 @@ const SpecialOffer = ({ product, addToCart }) => {
           margin: 1rem auto 0;
         }
 
-        .offer-products {
+        .offer-products-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           gap: 2rem;
           margin-top: 2rem;
         }
 
-        .discount-card {
-          background-color: white;
-          border-radius: 10px;
+        .offer-card {
+          background: white;
+          border-radius: 12px;
           overflow: hidden;
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: all 0.3s ease;
           position: relative;
         }
 
-        .discount-card:hover {
+        .offer-card.hovered {
           transform: translateY(-5px);
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .card-tag {
+        .discount-ribbon {
+          position: absolute;
+          top: 15px;
+          right: -30px;
+          background: #e53935;
+          color: white;
+          padding: 0.25rem 2rem;
+          transform: rotate(45deg);
+          font-size: 0.9rem;
+          font-weight: 600;
+          z-index: 2;
+        }
+
+        .product-tag {
           position: absolute;
           top: 15px;
           left: 15px;
-          background-color: #ff5722;
+          background-color: #4caf50;
           color: white;
           padding: 0.5rem 1rem;
           border-radius: 20px;
@@ -161,33 +203,34 @@ const SpecialOffer = ({ product, addToCart }) => {
           font-size: 1rem;
         }
 
-        .card-image {
+        .product-image-container {
           height: 200px;
           overflow: hidden;
+          position: relative;
         }
 
-        .card-image img {
+        .product-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
           transition: transform 0.5s ease;
         }
 
-        .discount-card:hover .card-image img {
+        .offer-card.hovered .product-image {
           transform: scale(1.05);
         }
 
-        .card-content {
+        .product-details {
           padding: 1.5rem;
         }
 
-        .card-content h3 {
+        .product-name {
           font-size: 1.25rem;
           margin-bottom: 1rem;
           color: #333;
         }
 
-        .price-container {
+        .price-section {
           display: flex;
           align-items: center;
           gap: 1rem;
@@ -200,7 +243,7 @@ const SpecialOffer = ({ product, addToCart }) => {
           font-size: 1rem;
         }
 
-        .discount-price {
+        .current-price {
           font-size: 1.5rem;
           font-weight: 700;
           color: #e53935;
@@ -228,7 +271,7 @@ const SpecialOffer = ({ product, addToCart }) => {
           border-radius: 5px;
           font-weight: 500;
           cursor: pointer;
-          transition: background-color 0.3s ease;
+          transition: all 0.3s ease;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -237,6 +280,7 @@ const SpecialOffer = ({ product, addToCart }) => {
 
         .add-to-cart-btn:hover {
           background-color: #388e3c;
+          transform: translateY(-2px);
         }
 
         .cart-icon {
@@ -244,7 +288,7 @@ const SpecialOffer = ({ product, addToCart }) => {
         }
 
         @media (max-width: 768px) {
-          .offer-products {
+          .offer-products-grid {
             grid-template-columns: 1fr;
           }
 

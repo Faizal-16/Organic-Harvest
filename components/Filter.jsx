@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Filter = ({ categories, onFilterChange }) => {
+const Filter = ({ categories, onFilterChange, showTitle = true }) => {
   const [filters, setFilters] = useState({
     category: "",
     priceRange: "",
@@ -17,9 +17,19 @@ const Filter = ({ categories, onFilterChange }) => {
     onFilterChange(newFilters);
   };
 
+  const handleReset = () => {
+    const resetFilters = {
+      category: "",
+      priceRange: "",
+      organic: false,
+    };
+    setFilters(resetFilters);
+    onFilterChange(resetFilters);
+  };
+
   return (
     <div className="filter-section">
-      <h3 className="filter-title">Filter Products</h3>
+      {showTitle && <h3 className="filter-title">Filter Products</h3>}
 
       <div className="filter-group">
         <label className="filter-label">Category</label>
@@ -54,18 +64,23 @@ const Filter = ({ categories, onFilterChange }) => {
         </select>
       </div>
 
-      <div className="filter-group">
-        <label className="filter-label">
-          <input
-            type="checkbox"
-            name="organic"
-            className="filter-checkbox"
-            checked={filters.organic}
-            onChange={handleChange}
-          />
-          Organic Only
-        </label>
+      <div className="filter-group flex">
+        <input
+          type="checkbox"
+          name="organic"
+          className="filter-checkbox"
+          checked={filters.organic}
+          onChange={handleChange}
+        />
+        <label className="filter-label">Organic Only</label>
       </div>
+
+      <button
+        onClick={handleReset}
+        className="w-full mt-4 py-2 text-sm font-medium text-green-600 border border-green-600 rounded hover:bg-green-50 transition-colors"
+      >
+        Reset Filters
+      </button>
     </div>
   );
 };
