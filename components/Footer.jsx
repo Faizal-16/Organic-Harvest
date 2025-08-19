@@ -78,6 +78,8 @@ const Footer = () => {
             <h4 className="footer-heading">Contact Us</h4>
             <ul className="footer-contact">
               <li>
+                {/* code for make space in between */}
+                
                 <span>Address:</span> Umarqui Road, Organic Valley, Silvassa
               </li>
               <li>
