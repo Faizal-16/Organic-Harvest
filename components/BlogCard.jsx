@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const BlogCard = ({ post }) => {
   return (
-    <div className="blog-card">
+    <div className="blog-card autoShow-animation">
       <Image
         src={post.image}
         alt={post.title}

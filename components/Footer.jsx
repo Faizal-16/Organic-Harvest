@@ -3,8 +3,8 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-container">
+    <footer className="footer ">
+      <div className="footer-container ">
         <div className="footer-grid">
           {/* Company Info */}
           <div className="footer-section">
@@ -79,8 +79,8 @@ const Footer = () => {
             <ul className="footer-contact">
               <li>
                 {/* code for make space in between */}
-                
-                <span>Address:</span> Umarqui Road, Organic Valley, Silvassa
+                <span>Address:</span> &nbsp;  Umarqui Road, Organic Valley,
+                Silvassa
               </li>
               <li>
                 <span>Phone:</span> (91) 9067431
